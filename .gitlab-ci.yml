@@ -1,0 +1,19 @@
+stages:
+  - test
+
+variables:
+  NODE_ENV: test
+
+# before_script:
+#   - npm install
+
+test:
+  image: node:14
+  stage: test
+  script:
+    - cd client
+    - npm install
+    - npm run test
+  artifacts:
+    paths:
+      - client/test-results/
