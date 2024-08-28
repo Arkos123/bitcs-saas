@@ -2,10 +2,10 @@
 import { mount } from '@vue/test-utils'
 import { describe, it, expect, beforeEach } from 'vitest'
 import App from '@/App.vue'
-import LoginPage from '@/components/tenantPage/LoginPage.vue'
-import RegisterPage from '@/components/tenantPage/RegisterPage.vue'
-import UserPage from '@/components/tenantPage/UserPage.vue'
-import NotFound from '@/components/NotFound.vue'
+import LoginPage from '@/views/LoginPage.vue'
+import RegisterPage from '@/views/RegisterPage.vue'
+import UserPage from '@/views/UserPage.vue'
+import NotFound from '@/views/NotFound.vue'
 
 describe('App.vue', () => {
   let wrapper

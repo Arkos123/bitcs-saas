@@ -16,11 +16,13 @@
     "@heroicons/vue": "^2.1.4",
     "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
+    "chart.js": "^4.4.3",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.4.4",
     "tailwindcss": "^3.4.4",
-    "vue": "^3.4.29"
+    "vue": "^3.4.29",
+    "vue-chartjs": "^5.3.1"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.8.0",

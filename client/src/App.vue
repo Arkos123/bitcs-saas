@@ -1,8 +1,8 @@
 <script>
-import LoginPage from './components/tenantPage/LoginPage.vue'
-import RegisterPage from './components/tenantPage/RegisterPage.vue'
-import UserPage from './components/tenantPage/UserPage.vue'
-import NotFound from './components/NotFound.vue'
+import LoginPage from './views/LoginPage.vue'
+import RegisterPage from './views/RegisterPage.vue'
+import UserPage from './views/UserPage.vue'
+import NotFound from './views/NotFound.vue'
 //import RegSuccess from './RegSuccess.vue'
 const routes = {
   login: LoginPage,

@@ -7,12 +7,15 @@ const cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var tenantRouter = require('./routes/tenant');
+var tenantStructRouter = require('./routes/tenantStruct');
+var projectRouter = require('./routes/project');
+var stuffRouter = require('./routes/stuff');
 
 var app = express();
 
 // 设置 Mongoose 连接
 const mongoose = require("mongoose");
-const mongoDB = "YOU MONGODB URL HERE";
+const mongoDB = "You database url here";
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
@@ -33,6 +36,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/tenant', tenantRouter);
+app.use('/struct', tenantStructRouter);
+app.use('/project', projectRouter);
+app.use('/stuff', stuffRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

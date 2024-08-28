@@ -1,12 +1,9 @@
-// RegisterPage.vue 注册页面单元测试
-
 import { mount } from '@vue/test-utils'
-import RegisterPage from '@/components/tenantPage/RegisterPage.vue'
-import axios from 'axios'
+import RegisterPage from '@/views/RegisterPage.vue'
+import api from '@/utils/api.js'
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-// import { API_BASE_URL } from '../src/utils/util.js'
 
-vi.mock('axios')
+vi.mock('@/utils/api.js')
 
 describe('RegisterPage.vue', () => {
   let wrapper
@@ -32,7 +29,7 @@ describe('RegisterPage.vue', () => {
   })
 
   it('提交表单时，按钮显示加载状态', async () => {
-    axios.post.mockResolvedValue(
+    api.tenantRegister.mockResolvedValue(
         new Promise((resolve) => {
           setTimeout(() => {
             resolve();
@@ -56,7 +53,7 @@ describe('RegisterPage.vue', () => {
   })
 
   it('提交完成后，按钮恢复初始状态', async () => {
-    axios.post.mockResolvedValue({})
+    api.tenantRegister.mockResolvedValue({})
 
     await wrapper.setData({
       fields: [
@@ -76,7 +73,7 @@ describe('RegisterPage.vue', () => {
   })
 
   it('注册成功时弹出alert提示', async () => {
-    axios.post.mockResolvedValue({})
+    api.tenantRegister.mockResolvedValue({})
 
     window.alert = vi.fn()
 
@@ -98,7 +95,7 @@ describe('RegisterPage.vue', () => {
 
   it('注册失败时弹出alert提示', async () => {
     const errorMessage = '测试失败消息'
-    axios.post.mockRejectedValue(new Error(errorMessage))
+    api.tenantRegister.mockRejectedValue(new Error(errorMessage))
 
     window.alert = vi.fn()
 
@@ -119,7 +116,7 @@ describe('RegisterPage.vue', () => {
 
     
     const errorResponse = { response: { data: 'Invalid credentials' } };
-    axios.post.mockRejectedValue(errorResponse)
+    api.tenantRegister.mockRejectedValue(errorResponse)
     await wrapper.find('form').trigger('submit.prevent')
     await wrapper.vm.$nextTick()
     expect(window.alert).toHaveBeenCalledWith("注册失败："+errorResponse.response.data)

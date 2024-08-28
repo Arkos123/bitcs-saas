@@ -13,12 +13,18 @@ const express = require("express");
 const router = express.Router();
 
 const Tenant = require("../models/tenant");
-
-/// 租户路由 ///
-router.get('/', function(req, res, next) {
-    res.redirect("/login");
-  });
   
+/**
+ * 获取租户数据相关的请求
+ * API 列表：
+ * 1. POST tenant/register { name, password, address, phone } 注册租户
+ * 2. POST tenant/login { name, password }=>{token} 登录租户
+ * 3. GET tenant/tenant-data 获取本租户
+ * 3. PUT tenant/tenant-data { name, address, phone, contact, password } 修改本租户
+ * 4. DELETE tenant/tenant-data 注销本租户
+ * 5. GET tenant/tenant-data-all 获取所有租户信息（密码除外）
+ */
+
 // 处理注册表单
 router.post('/register', async (req, res) => {
     try {
@@ -44,8 +50,8 @@ try {
     } else if (!(await bcrypt.compare(password, tenant.password))) {
         return res.status(401).send('密码错误！');
     }
-    // 设置token，10分钟过期
-    const token = jwt.sign({ userId: tenant._id }, secret, { expiresIn: '10m' });
+    // 设置token，60分钟过期
+    const token = jwt.sign({ userId: tenant._id }, secret, { expiresIn: '60m' });
     // 登录成功，返回token
     res.status(200).json({ token });
 } catch (error) {
@@ -56,7 +62,7 @@ try {
 // 获取公司数据
 router.get('/tenant-data', authenticateToken, async (req, res) => {
     try {
-        const { name } = req.body;
+        // const { name } = req.body;
         // 根据token中的id获取
         const tenant = await Tenant.findById(req.user.userId);
         if (!tenant) {
